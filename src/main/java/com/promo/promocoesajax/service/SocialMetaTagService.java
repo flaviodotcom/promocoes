@@ -33,8 +33,7 @@ public class SocialMetaTagService {
 
         try {
             Document doc = Jsoup.connect(url)
-                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-                    .cookie("name", "value")
+                    .userAgent("Mozilla")
                     .get();
 
             tag.setTitle(doc.head().select("meta[name=twitter:title]").attr("content"));
@@ -52,8 +51,7 @@ public class SocialMetaTagService {
 
         try {
             Document doc = Jsoup.connect(url)
-                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-                    .cookie("name", "value")
+                    .userAgent("Mozilla")
                     .get();
 
             tag.setTitle(doc.head().select("meta[property=og:title]").attr("content"));
