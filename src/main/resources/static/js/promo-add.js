@@ -17,6 +17,10 @@ $("#form-add-promo").submit((event) => {
         method: "POST",
         url: "/promocao/save",
         data: promo,
+        beforeSend: () => {
+            $("#form-add-promo").hide();
+            $("#loader-form").addClass("loader loader-center").show();
+        },
         success: () => {
             $("#form-add-promo").each(function () {
                 this.reset();
@@ -28,9 +32,15 @@ $("#form-add-promo").submit((event) => {
         error: (xhr) => {
             console.log("> error: ", xhr.responseText);
             $("#alert").addClass("alert alert-danger").text("Não foi possível salvar esta promoção");
+        },
+        complete: () => {
+            $("#loader-form").fadeOut(800, function () {
+                $("#form-add-promo").fadeIn(250);
+                $("#loader-form").removeClass("loader-center").removeClass("loader");
+            });
         }
     });
-})
+});
 
 
 // capturar Meta Tags
