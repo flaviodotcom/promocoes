@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -16,9 +18,11 @@ public class Promocao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "É necessário inserir Um título")
     @Column(name = "titulo", nullable = false)
     private String titulo;
 
+    @NotBlank(message = "Por favor, insira o link da promoção")
     @Column(name = "link_promocao", nullable = false)
     private String linkPromocao;
 
@@ -31,6 +35,7 @@ public class Promocao implements Serializable {
     @Column(name = "link_imagem", nullable = false)
     private String linkImagem;
 
+    @NotNull(message = "É necessário inserir o preço")
     @NumberFormat(style = Style.CURRENCY, pattern = "#,##0.00")
     @Column(name = "preco_promocao", nullable = false)
     private BigDecimal preco;
@@ -41,6 +46,7 @@ public class Promocao implements Serializable {
     @Column(name = "data_cadastro", nullable = false)
     private LocalDateTime dtCadastro;
 
+    @NotNull(message = "Insira uma categoria")
     @ManyToOne
     @JoinColumn(name = "categoria_fk")
     private Categoria categoria;
