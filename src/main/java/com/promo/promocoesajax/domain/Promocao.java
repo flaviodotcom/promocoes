@@ -23,7 +23,7 @@ public class Promocao implements Serializable {
     private String titulo;
 
     @NotBlank(message = "Por favor, insira o link da promoção")
-    @Column(name = "link_promocao", nullable = false)
+    @Column(name = "link_promocao", nullable = false, length = 500)
     private String linkPromocao;
 
     @Column(name = "site_promocao", nullable = false)
