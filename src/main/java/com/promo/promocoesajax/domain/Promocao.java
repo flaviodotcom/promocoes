@@ -1,6 +1,6 @@
 package com.promo.promocoesajax.domain;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 

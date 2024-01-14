@@ -11,16 +11,6 @@ $("#form-add-promo").submit((event) => {
     promo.linkImagem = $("#linkImagem").attr("src");
     promo.site = $("#site").text();
 
-    if (promo.preco === null || promo.preco === "") {
-        exibirErro("preco", "O campo preço é obrigatório.");
-        return;
-    }
-
-    if (promo.categoria === null || promo.categoria === "") {
-        exibirErro("categoria", "O campo categoria é obrigatório.");
-        return;
-    }
-
     console.log("promo > ", promo);
 
     $.ajax({
@@ -38,6 +28,18 @@ $("#form-add-promo").submit((event) => {
             $("#linkImagem").attr("src", "/images/promo-dark.png");
             $("#site").text("");
             $("#alert").addClass("alert alert-success").text("Promoção cadastrada com sucesso.");
+        },
+        statusCode: {
+            422: function (xhr) {
+                console.log('status error:', xhr.status);
+                var errors = $.parseJSON(xhr.responseText);
+                $.each(errors, function (key, val) {
+                    $("#" + key).addClass("is-invalid");
+                    $("#error-" + key)
+                        .addClass("invalid-feedback")
+                        .append("<span class='error-span'>" + val + "</span>")
+                });
+            }
         },
         error: (xhr) => {
             console.log("> error: ", xhr.responseText);
@@ -92,10 +94,3 @@ $("#linkPromocao").on("change", () => {
         });
     }
 });
-
-function exibirErro(id, msg) {
-    $("#" + id).addClass("is-invalid");
-    $("#error-" + id)
-        .addClass("invalid-feedback")
-        .html("<span class='error-span'>" + msg + "</span>");
-}
