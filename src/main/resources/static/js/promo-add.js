@@ -18,6 +18,13 @@ $("#form-add-promo").submit((event) => {
         url: "/promocao/save",
         data: promo,
         beforeSend: () => {
+            $("span").closest(".error-span").remove();
+
+            $("#categoria").removeClass("is-invalid");
+            $("#preco").removeClass("is-invalid");
+            $("#linkPromocao").removeClass("is-invalid");
+            $("#titulo").removeClass("is-invalid");
+
             $("#form-add-promo").hide();
             $("#loader-form").addClass("loader loader-center").show();
         },
@@ -27,7 +34,10 @@ $("#form-add-promo").submit((event) => {
             });
             $("#linkImagem").attr("src", "/images/promo-dark.png");
             $("#site").text("");
-            $("#alert").addClass("alert alert-success").text("Promoção cadastrada com sucesso.");
+            $("#alert")
+                .removeClass("alert alert-danger")
+                .addClass("alert alert-success")
+                .text("Promoção cadastrada com sucesso")
         },
         statusCode: {
             422: function (xhr) {
