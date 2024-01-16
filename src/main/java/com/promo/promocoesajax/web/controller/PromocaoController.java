@@ -12,8 +12,10 @@ import com.promo.promocoesajax.repository.PromocaoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +37,13 @@ public class PromocaoController {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
+
+    @GetMapping("/list")
+    public String listarOfertas(ModelMap model) {
+        Sort sort = new Sort(Sort.Direction.DESC, "dtCadastro");
+        model.addAttribute("promocoes", promocaoRepository.findAll(sort));
+        return "promo-list";
+    }
 
     @PostMapping("/save")
     public ResponseEntity<?> salvarPromocao(@Valid Promocao promocao, BindingResult result) {
