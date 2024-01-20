@@ -52,6 +52,13 @@ public class PromocaoController {
         return "promo-card";
     }
 
+    @PostMapping("/like/{id}")
+    public ResponseEntity<?> adicionarLikes(@PathVariable("id") Long id) {
+        promocaoRepository.updateSomarLikes(id);
+        int likes = promocaoRepository.findLikesById(id);
+        return ResponseEntity.ok(likes);
+    }
+
     @PostMapping("/save")
     public ResponseEntity<?> salvarPromocao(@Valid Promocao promocao, BindingResult result) {
         if (result.hasErrors()) {
