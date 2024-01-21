@@ -59,6 +59,12 @@ public class PromocaoController {
         return ResponseEntity.ok(likes);
     }
 
+    @GetMapping("/site")
+    public ResponseEntity<?> autoCompleteByTermo(@RequestParam("termo") String termo) {
+        List<String> sites = promocaoRepository.findSiteByTermo(termo);
+        return ResponseEntity.ok(sites);
+    }
+
     @PostMapping("/save")
     public ResponseEntity<?> salvarPromocao(@Valid Promocao promocao, BindingResult result) {
         if (result.hasErrors()) {
