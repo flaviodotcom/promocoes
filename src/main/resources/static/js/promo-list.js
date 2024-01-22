@@ -18,11 +18,13 @@ $(window).scroll(() => {
 });
 
 function loadByScrollbar(pageNumber) {
+    let site = $("#autocomplete-input").val();
     $.ajax({
         method: "GET",
         url: "/promocao/list/ajax",
         data: {
-            page: pageNumber
+            page: pageNumber,
+            site: site
         },
         beforeSend: () => {
             $("#loader-img").show();
