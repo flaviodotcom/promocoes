@@ -1,4 +1,5 @@
 let pageNumber = 0;
+const autocompleteInput = $("#autocomplete-input");
 
 $(document).ready(function () {
     $("#loader-img").hide();
@@ -18,7 +19,7 @@ $(window).scroll(() => {
 });
 
 function loadByScrollbar(pageNumber) {
-    let site = $("#autocomplete-input").val();
+    let site = autocompleteInput.val();
     $.ajax({
         method: "GET",
         url: "/promocao/list/ajax",
@@ -48,7 +49,7 @@ function loadByScrollbar(pageNumber) {
     });
 }
 
-$("#autocomplete-input").autocomplete({
+autocompleteInput.autocomplete({
     source: function (request, response) {
         $.ajax({
             method: "GET",
