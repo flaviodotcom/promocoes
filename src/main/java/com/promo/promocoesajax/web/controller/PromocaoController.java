@@ -9,6 +9,7 @@ import com.promo.promocoesajax.domain.Categoria;
 import com.promo.promocoesajax.domain.Promocao;
 import com.promo.promocoesajax.repository.CategoriaRepository;
 import com.promo.promocoesajax.repository.PromocaoRepository;
+import com.promo.promocoesajax.service.PromocaoDatatablesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
@@ -35,6 +37,17 @@ public class PromocaoController {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
+
+    @GetMapping("/tabela")
+    public String showTable() {
+        return "promo-datatables";
+    }
+
+    @GetMapping("/datatables/server")
+    public ResponseEntity<?> datatables(HttpServletRequest request) {
+        Map<String, Object> data = new PromocaoDatatablesService().execute(promocaoRepository, request);
+        return ResponseEntity.ok(data);
+    }
 
     @GetMapping("/list")
     public String listarOfertas(ModelMap model) {
