@@ -17,6 +17,11 @@ function openLink(data, type) {
     return data;
 }
 
+function dateFormat(dtCadastro) {
+    moment.locale('pt-br');
+    return moment(dtCadastro).format('LLL');
+}
+
 $(document).ready(function () {
 
     $("#table-server").DataTable({
@@ -37,7 +42,7 @@ $(document).ready(function () {
             {data: 'linkImagem', render: openLink},
             {data: 'preco', render: $.fn.dataTable.render.number('.', ',', 2, 'R$')},
             {data: 'likes'},
-            {data: 'dtCadastro'},
+            {data: 'dtCadastro', render: dateFormat},
             {data: 'categoria.titulo'}
         ]
     });
