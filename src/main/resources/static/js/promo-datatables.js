@@ -44,6 +44,23 @@ $(document).ready(function () {
             {data: 'likes'},
             {data: 'dtCadastro', render: dateFormat},
             {data: 'categoria.titulo'}
+        ],
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                text: 'Editar',
+                attr: {
+                    id: 'btn-editar',
+                    type: 'button'
+                }
+            },
+            {
+                text: 'Excluir',
+                attr: {
+                    id: 'btn-excluir',
+                    type: 'button'
+                }
+            }
         ]
     });
 });
