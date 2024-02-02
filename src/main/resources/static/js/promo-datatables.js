@@ -63,4 +63,12 @@ $(document).ready(function () {
             }
         ]
     });
+    $("#table-server tbody").on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            $('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
 });
