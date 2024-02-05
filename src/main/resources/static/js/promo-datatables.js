@@ -108,9 +108,7 @@ $(document).ready(function () {
         });
     });
 
-    $('.modal').click(function (event) {
-        $(event.target).modal('hide');
-    });
+    $(".modal").css("z-index", "1500");
 
     function getPromoId() {
         return table.row(table.$('tr.selected')).data().id;
