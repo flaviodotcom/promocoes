@@ -83,16 +83,33 @@ $(document).ready(function () {
 
     $("#btn-editar").on('click', function () {
         if (isSelectedRow()) {
-            let id = getPromoId();
-            alert('Botão editar selecionado ' + id);
+            $("#modal-form").modal('show');
         }
     });
 
     $("#btn-excluir").on('click', function () {
         if (isSelectedRow()) {
-            let id = getPromoId();
-            alert('Botão excluir selecionado ' + id);
+            $("#modal-delete").modal('show');
         }
+    });
+
+    $("#btn-del-modal").on('click', function () {
+        var id = getPromoId();
+        $.ajax({
+            method: "GET",
+            url: `/promocao/delete/${id}`,
+            success: function () {
+                $("#modal-delete").modal('hide');
+                table.ajax.reload();
+            },
+            error: function () {
+                alert("Ops... Ocorreu um erro, por favor, tente mais tarde")
+            }
+        });
+    });
+
+    $('.modal').click(function (event) {
+        $(event.target).modal('hide');
     });
 
     function getPromoId() {
