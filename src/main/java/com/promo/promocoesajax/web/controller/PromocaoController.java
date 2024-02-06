@@ -49,6 +49,12 @@ public class PromocaoController {
         return ResponseEntity.ok(data);
     }
 
+    @GetMapping("/edit/{id}")
+    public ResponseEntity<?> editPromocao(@PathVariable("id") Long id) {
+        Promocao promo = promocaoRepository.findById(id).get();
+        return ResponseEntity.ok(promo);
+    }
+
     @GetMapping("/delete/{id}")
     public ResponseEntity<?> excluirPromocao(@PathVariable("id") Long id) {
         promocaoRepository.deleteById(id);
