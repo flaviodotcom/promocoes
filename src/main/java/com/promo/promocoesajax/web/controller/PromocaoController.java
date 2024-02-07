@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.promo.promocoesajax.domain.Categoria;
 import com.promo.promocoesajax.domain.Promocao;
+import com.promo.promocoesajax.dto.PromocaoDTO;
 import com.promo.promocoesajax.repository.CategoriaRepository;
 import com.promo.promocoesajax.repository.PromocaoRepository;
 import com.promo.promocoesajax.service.PromocaoDatatablesService;
@@ -43,6 +44,17 @@ public class PromocaoController {
         return "promo-datatables";
     }
 
+    private ResponseEntity<?> getResponseEntity(BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError error : result.getFieldErrors()) {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            return ResponseEntity.unprocessableEntity().body(errors);
+        }
+        return null;
+    }
+
     @GetMapping("/datatables/server")
     public ResponseEntity<?> datatables(HttpServletRequest request) {
         Map<String, Object> data = new PromocaoDatatablesService().execute(promocaoRepository, request);
@@ -50,9 +62,24 @@ public class PromocaoController {
     }
 
     @GetMapping("/edit/{id}")
-    public ResponseEntity<?> editPromocao(@PathVariable("id") Long id) {
+    public ResponseEntity<?> preEditarPromocao(@PathVariable("id") Long id) {
         Promocao promo = promocaoRepository.findById(id).get();
         return ResponseEntity.ok(promo);
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity<?> editarPromocao(@Valid PromocaoDTO dto, BindingResult result) {
+        ResponseEntity<?> errors = getResponseEntity(result);
+        if (errors != null) return errors;
+
+        Promocao promo = promocaoRepository.findById(dto.getId()).get();
+        promo.setTitulo(dto.getTitulo());
+        promo.setDescricao(dto.getDescricao());
+        promo.setLinkImagem(dto.getLinkImagem());
+        promo.setPreco(dto.getPreco());
+        promo.setCategoria(dto.getCategoria());
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/delete/{id}")
@@ -107,13 +134,8 @@ public class PromocaoController {
 
     @PostMapping("/save")
     public ResponseEntity<?> salvarPromocao(@Valid Promocao promocao, BindingResult result) {
-        if (result.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : result.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
-            return ResponseEntity.unprocessableEntity().body(errors);
-        }
+        ResponseEntity<?> errors = getResponseEntity(result);
+        if (errors != null) return errors;
 
         log.info("Promoção {}", promocao.toString());
         promocao.setDtCadastro(LocalDateTime.now());
