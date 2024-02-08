@@ -42,7 +42,7 @@ $("#form-add-promo").submit((event) => {
         statusCode: {
             422: function (xhr) {
                 console.log('status error:', xhr.status);
-                var errors = $.parseJSON(xhr.responseText);
+                let errors = $.parseJSON(xhr.responseText);
                 $.each(errors, function (key, val) {
                     $("#" + key).addClass("is-invalid");
                     $("#error-" + key)
