@@ -78,6 +78,7 @@ public class PromocaoController {
         promo.setLinkImagem(dto.getLinkImagem());
         promo.setPreco(dto.getPreco());
         promo.setCategoria(dto.getCategoria());
+        promocaoRepository.save(promo);
 
         return ResponseEntity.ok().build();
     }
