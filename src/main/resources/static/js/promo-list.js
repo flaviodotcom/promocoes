@@ -105,3 +105,16 @@ $(document).on("click", "button[id*='likes-btn-']", function () {
         }
     });
 });
+
+function init() {
+    const eventSource = new EventSource("/promocao/notificacao");
+    eventSource.onopen = (event) => {
+        console.log("The connection has been established.");
+    };
+
+    eventSource.onmessage = (event) => {
+        console.log("New message", event.data);
+    };
+}
+
+window.onload = init();
