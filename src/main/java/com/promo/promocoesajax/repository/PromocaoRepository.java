@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
@@ -29,9 +30,12 @@ public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
     @Query("update Promocao p set p.likes = p.likes + 1 where p.id = :id")
     void updateSomarLikes(@Param("id") Long id);
 
-    @Query("select  p.likes from Promocao p where p.id = :id")
+    @Query("select p.likes from Promocao p where p.id = :id")
     int findLikesById(@Param("id") Long id);
 
     @Query("select p from Promocao p where p.preco = :preco")
     Page<Promocao> findByPreco(@Param("preco") BigDecimal preco, Pageable pageable);
+
+    @Query("select MAX(p.dtCadastro) from Promocao p")
+    LocalDateTime findPromocaoComUltimaData();
 }
