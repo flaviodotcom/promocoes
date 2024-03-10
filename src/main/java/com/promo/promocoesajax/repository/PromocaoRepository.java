@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
 
@@ -38,4 +39,9 @@ public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
 
     @Query("select MAX(p.dtCadastro) from Promocao p")
     LocalDateTime findPromocaoComUltimaData();
+
+    @Query("select count(p.id) as count, max(p.dtCadastro) as lastDate " +
+            "from Promocao p " +
+            "where p.dtCadastro > :ultimaData")
+    Map<String, Object> countAndMaxNovasPromocoesByDtCadastro(LocalDateTime ultimaData);
 }
