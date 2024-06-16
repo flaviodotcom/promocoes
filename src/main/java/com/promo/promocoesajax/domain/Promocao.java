@@ -1,15 +1,17 @@
 package com.promo.promocoesajax.domain;
 
-import javax.persistence.*;
+import lombok.Data;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.NumberFormat.Style;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "promocoes")
 public class Promocao implements Serializable {
@@ -50,86 +52,6 @@ public class Promocao implements Serializable {
     @ManyToOne
     @JoinColumn(name = "categoria_fk")
     private Categoria categoria;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getLinkPromocao() {
-        return linkPromocao;
-    }
-
-    public void setLinkPromocao(String linkPromocao) {
-        this.linkPromocao = linkPromocao;
-    }
-
-    public String getSite() {
-        return site;
-    }
-
-    public void setSite(String site) {
-        this.site = site;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getLinkImagem() {
-        return linkImagem;
-    }
-
-    public void setLinkImagem(String linkImagem) {
-        this.linkImagem = linkImagem;
-    }
-
-    public BigDecimal getPreco() {
-        return preco;
-    }
-
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public LocalDateTime getDtCadastro() {
-        return dtCadastro;
-    }
-
-    public void setDtCadastro(LocalDateTime dtCadastro) {
-        this.dtCadastro = dtCadastro;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
 
     @Override
     public String toString() {

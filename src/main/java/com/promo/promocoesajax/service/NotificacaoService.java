@@ -2,6 +2,7 @@ package com.promo.promocoesajax.service;
 
 import com.promo.promocoesajax.domain.Emissor;
 import com.promo.promocoesajax.repository.PromocaoRepository;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -57,9 +58,7 @@ public class NotificacaoService {
         this.emissores.remove(emissor);
     }
 
+    @Getter
     private final CopyOnWriteArrayList<Emissor> emissores = new CopyOnWriteArrayList<>();
 
-    public CopyOnWriteArrayList<Emissor> getEmissores() {
-        return emissores;
-    }
 }
