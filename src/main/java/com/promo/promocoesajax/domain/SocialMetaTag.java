@@ -17,11 +17,7 @@ public class SocialMetaTag implements Serializable {
 
     @Override
     public String toString() {
-        return "SocialMetaTag{" +
-                "site='" + site + '\'' +
-                ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                ", image='" + image + '\'' +
-                '}';
+        return String.format("SocialMetaTag{site='%s', title='%s', url='%s', image='%s'}",
+                site, title, url, image);
     }
 }

@@ -65,10 +65,9 @@ public class SocialMetaTagService {
     }
 
     private boolean isEmpty(SocialMetaTag tag) {
-        if (tag.getTitle().isEmpty()) return true;
-        if (tag.getSite().isEmpty()) return true;
-        if (tag.getImage().isEmpty()) return true;
-        if (tag.getUrl().isEmpty()) return true;
-        return false;
+        return tag.getTitle().isEmpty() ||
+                tag.getSite().isEmpty() ||
+                tag.getImage().isEmpty() ||
+                tag.getUrl().isEmpty();
     }
 }

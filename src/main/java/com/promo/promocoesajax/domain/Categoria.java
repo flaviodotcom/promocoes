@@ -27,9 +27,6 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "Categoria{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                '}';
+        return String.format("Categoria{id=%s, titulo='%s'}", id, titulo);
     }
 }
